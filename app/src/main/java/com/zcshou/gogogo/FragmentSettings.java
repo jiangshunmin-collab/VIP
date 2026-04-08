@@ -1,4 +1,4 @@
-package com.zcshou.gogogo;
+package vip.cainiaonet.cn;
 
 import android.os.Bundle;
 import android.text.InputType;
