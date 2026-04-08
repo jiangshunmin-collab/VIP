@@ -101,11 +101,11 @@ import com.zcshou.utils.MapUtils;
 import com.elvishew.xlog.XLog;
 
 import io.noties.markwon.Markwon;
-//import okhttp3.Call;
-//import okhttp3.Callback;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-//import okhttp3.ResponseBody;
+import okhttp3.ResponseBody;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -272,7 +272,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
             Intent serviceGoIntent = new Intent(MainActivity.this, ServiceGo.class);
             stopService(serviceGoIntent);
         }
-        unregisterReceiver(mDownloadBdRcv);
+        //unregisterReceiver(mDownloadBdRcv);
 
         mSensorManager.unregisterListener(this);
 
