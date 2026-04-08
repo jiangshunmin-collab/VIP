@@ -93,7 +93,7 @@ public class ServiceGo extends Service {
         initNotification();
 
         initJoyStick();
-        initVipIcon();
+        ();
     }
 
     @Override
@@ -196,7 +196,7 @@ private void initVipIcon() {
     mVipIcon.setAlpha(0.7f); // 半透明，防止遮挡
 
     WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-            120, 120, // 图标大小
+            60, 60, // 图标大小
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : 
                 WindowManager.LayoutParams.TYPE_PHONE,
@@ -204,8 +204,8 @@ private void initVipIcon() {
             PixelFormat.TRANSLUCENT);
 
     params.gravity = Gravity.TOP | Gravity.START;
-    params.x = 20;
-    params.y = 20;
+    params.x = 0;
+    params.y = 0;
 
     // 默认显示图标
     mWindowManager.addView(mVipIcon, params);
