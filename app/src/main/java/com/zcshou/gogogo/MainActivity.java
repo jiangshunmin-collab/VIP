@@ -107,6 +107,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import java.util.ArrayList;
+
 public class MainActivity extends BaseActivity implements SensorEventListener {
     /* 对外 */
     public static final String LAT_MSG_ID = "LAT_VALUE";
