@@ -461,7 +461,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
 
             return true;
         });
-    }
+ 
 
         // 直接获取第 0 个头部视图
         View headerView = mNavigationView.getHeaderView(0);
