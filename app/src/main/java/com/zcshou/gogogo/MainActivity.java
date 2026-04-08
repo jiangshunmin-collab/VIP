@@ -1,4 +1,4 @@
-package vip.cainiaonet.cn;
+package com.zcshou.gogogo;
 
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
