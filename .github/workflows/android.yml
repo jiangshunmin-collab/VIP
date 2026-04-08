@@ -2,11 +2,13 @@ name: Build_VIP_APK
 
 on:
   push:
-    branches: [ "main", "master" ] 
+    branches: [ "main", "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # 解决你看到的 Node.js 20 警告
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -22,9 +24,11 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease --stacktrace
+        # 添加 --info 能够看到最详细的报错原因
+        run: ./gradlew assembleRelease --stacktrace --info
 
       - name: Upload APK
+        if: success() # 只有成功时才上传
         uses: actions/upload-artifact@v4
         with:
           name: VIP_Install_Package
