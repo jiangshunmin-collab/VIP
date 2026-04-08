@@ -167,6 +167,26 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // --- 新增：启动即检查 GPS 相关权限 ---
+    String[] permissions = {
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.READ_PHONE_STATE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+    
+    ArrayList<String> toRequest = new ArrayList<>();
+    for (String perm : permissions) {
+        if (checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+            toRequest.add(perm);
+        }
+    }
+
+    if (!toRequest.isEmpty()) {
+        // 如果有权限没给，直接弹出系统授权框
+        requestPermissions(toRequest.toArray(new String[0]), 127);
+    }
+    // ------------------------------------
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
