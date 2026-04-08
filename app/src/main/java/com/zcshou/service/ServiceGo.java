@@ -204,8 +204,8 @@ private void initVipIcon() {
             PixelFormat.TRANSLUCENT);
 
     params.gravity = Gravity.TOP | Gravity.START;
-    params.x = 0;
-    params.y = 0;
+    params.x = 10;
+    params.y = 10;
 
     // 默认显示图标
     mWindowManager.addView(mVipIcon, params);
