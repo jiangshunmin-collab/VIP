@@ -32,6 +32,11 @@ import com.zcshou.gogogo.MainActivity;
 import com.zcshou.gogogo.R;
 import com.zcshou.joystick.JoyStick;
 
+import android.graphics.PixelFormat;
+import android.view.Gravity;
+import android.view.WindowManager;
+import android.widget.ImageView;
+
 public class ServiceGo extends Service {
     // 定位相关变量
     public static final double DEFAULT_LAT = 36.667662;
@@ -58,9 +63,14 @@ public class ServiceGo extends Service {
     private NoteActionReceiver mActReceiver;
     // 摇杆相关
     private JoyStick mJoyStick;
-
+    
+    private ImageView mVipIcon; // 我们的新图标
+    private WindowManager mWindowManager;
+    
     private final ServiceGoBinder mBinder = new ServiceGoBinder();
 
+
+    
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
@@ -83,6 +93,7 @@ public class ServiceGo extends Service {
         initNotification();
 
         initJoyStick();
+        initVipIcon();
     }
 
     @Override
@@ -110,6 +121,11 @@ public class ServiceGo extends Service {
         unregisterReceiver(mActReceiver);
         stopForeground(STOP_FOREGROUND_REMOVE);
 
+
+        if (mVipIcon != null && mWindowManager != null) {
+        mWindowManager.removeView(mVipIcon);
+        }
+        
         super.onDestroy();
     }
 
@@ -173,6 +189,30 @@ public class ServiceGo extends Service {
         mJoyStick.show();
     }
 
+private void initVipIcon() {
+    mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+    mVipIcon = new ImageView(this);
+    mVipIcon.setImageResource(R.mipmap.ic_launcher_round); // 使用圆图标
+    mVipIcon.setAlpha(0.7f); // 半透明，防止遮挡
+
+    WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+            120, 120, // 图标大小
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? 
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : 
+                WindowManager.LayoutParams.TYPE_PHONE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT);
+
+    params.gravity = Gravity.TOP | Gravity.START;
+    params.x = 20;
+    params.y = 20;
+
+    // 默认显示图标
+    mWindowManager.addView(mVipIcon, params);
+
+}
+
+    
     private void initGoLocation() {
         // 创建 HandlerThread 实例，第一个参数是线程的名字
         mLocHandlerThread = new HandlerThread(SERVICE_GO_HANDLER_NAME, Process.THREAD_PRIORITY_FOREGROUND);
@@ -306,7 +346,7 @@ public class ServiceGo extends Service {
             XLog.e("SERVICEGO: ERROR - setLocationNetwork");
         }
     }
-
+/*
     public class NoteActionReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -322,6 +362,27 @@ public class ServiceGo extends Service {
             }
         }
     }
+*/
+
+    public class NoteActionReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (action != null) {
+            if (action.equals(SERVICE_GO_NOTE_ACTION_JOYSTICK_SHOW)) {
+                // 显示新图标，隐藏旧手柄（防止报错）
+                if (mVipIcon != null) mVipIcon.setVisibility(android.view.View.VISIBLE);
+                mJoyStick.hide(); 
+            }
+
+            if (action.equals(SERVICE_GO_NOTE_ACTION_JOYSTICK_HIDE)) {
+                // 隐藏新图标
+                if (mVipIcon != null) mVipIcon.setVisibility(android.view.View.GONE);
+                mJoyStick.hide();
+            }
+        }
+    }
+}
 
     public class ServiceGoBinder extends Binder {
         public void setPosition(double lng, double lat, double alt) {
