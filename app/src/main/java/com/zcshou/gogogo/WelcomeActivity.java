@@ -1,4 +1,4 @@
-package com.zcshou.gogogo;
+package vip.cainiaonet.cn;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
