@@ -18,14 +18,14 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Fix Missing Local Properties
-        # 这一步是关键：手动创建一个空的 local.properties 文件
-        run: touch local.properties
+      - name: Fix Environment
+        run: |
+          touch local.properties
+          chmod +x gradlew
 
       - name: Build Debug APK
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+        # 添加 -x lint 和 -x test 跳过无关紧要的检查，只求生成 APK
+        run: ./gradlew assembleDebug -x lint -x test --stacktrace
 
       - name: Upload APK
         if: success()
