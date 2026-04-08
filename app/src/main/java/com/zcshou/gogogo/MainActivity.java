@@ -233,9 +233,9 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
 
         initSearchView();
 
-        initUpdateVersion();
+        //initUpdateVersion();
 
-        checkUpdateVersion(false);
+        //checkUpdateVersion(false);
     }
 
     @Override
@@ -438,7 +438,6 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
 
             if (id == R.id.nav_history) {
                 Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-
                 startActivity(intent);
             } else if (id == R.id.nav_settings) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -454,22 +453,15 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
                         GoUtils.DisplayToast(this, getResources().getString(R.string.app_error_dev));
                     }
                 }
-            } else if (id == R.id.nav_update) {
-                checkUpdateVersion(true);
-            } else if (id == R.id.nav_feedback) {
-                File file = new File(getExternalFilesDir("Logs"), GoApplication.LOG_FILE_NAME);
-                ShareUtils.shareFile(this, file, item.getTitle().toString());
-            } else if (id == R.id.nav_contact) {
-                Uri uri = Uri.parse("https://gitee.com/itexp/gogogo/issues");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
             }
 
+            // 关闭侧边栏
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
 
             return true;
         });
+    }
 
         // 直接获取第 0 个头部视图
         View headerView = mNavigationView.getHeaderView(0);
@@ -1173,6 +1165,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
     }
 
     /*============================== 更新 相关 ==============================*/
+    /*
     private void initUpdateVersion() {
         mDownloadManager =(DownloadManager) MainActivity.this.getSystemService(DOWNLOAD_SERVICE);
 
@@ -1185,7 +1178,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         };
         registerReceiver(mDownloadBdRcv, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
-
+    */
     private void checkUpdateVersion(boolean result) {
         String mapApiUrl = "https://api.github.com/repos/zcshou/gogogo/releases/latest";
 
