@@ -2,9 +2,9 @@
     <string name="app_name">JSM</string>
     <string name="app_settings">设置</string>
     <string name="app_history">历史记录</string>
-    <string name="app_author">ZCShou</string>
+    <string name="app_author">JSM</string>
     <string name="app_email">zcsexp@gmail.com</string>
-    <string name="app_statement">仅供学习使用，否则后果自负！</string>
+    <string name="app_statement">私人专用软件！</string>
     <string name="app_service_tips">VIP服务正在运行中</string>
     <string name="app_agreement">用户协议</string>
     <string name="app_agreement_content">"1. 本软件专为学习 Android 开发使用，不会收集任何用户数据。"
