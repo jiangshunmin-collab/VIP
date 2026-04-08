@@ -18,17 +18,20 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Fix Environment
+      - name: Force Inject Map Keys
+        # 直接在这里把你的 AK 写入环境，这是最稳妥的办法
         run: |
+          echo "MAPS_API_KEY=WNrWOeRfLlxoc1PDXcHJnrtHRHwsvgB8" > local.properties
+          echo "MAPS_SAFE_CODE=123456" >> local.properties
           chmod +x gradlew
 
       - name: Build Debug APK
-        # 添加 -x lint 和 -x test 跳过无关紧要的检查，只求生成 APK
-        run: ./gradlew assembleDebug -x lint -x test --stacktrace
+        # 使用 assembleDebug 避开 release 签名的复杂报错
+        run: ./gradlew assembleDebug -x lint -x test
 
       - name: Upload APK
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: VIP_Debug_APK
+          name: VIP_Final_APK
           path: app/build/outputs/apk/debug/*.apk
