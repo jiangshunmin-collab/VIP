@@ -1,7 +1,7 @@
 package com.zcshou.gogogo;
 
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
+//import android.app.DownloadManager;
+//import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -101,11 +101,11 @@ import com.zcshou.utils.MapUtils;
 import com.elvishew.xlog.XLog;
 
 import io.noties.markwon.Markwon;
-import okhttp3.Call;
-import okhttp3.Callback;
+//import okhttp3.Call;
+//import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
+//import okhttp3.ResponseBody;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -163,10 +163,10 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
     private MenuItem searchItem;
     private SuggestionSearch mSuggestionSearch;
     /*============================== 更新 相关 ==============================*/
-    private DownloadManager mDownloadManager = null;
-    private long mDownloadId;
-    private BroadcastReceiver mDownloadBdRcv;
-    private String mUpdateFilename;
+    //private DownloadManager mDownloadManager = null;
+    //private long mDownloadId;
+    //private BroadcastReceiver mDownloadBdRcv;
+    //private String mUpdateFilename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1178,7 +1178,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         };
         registerReceiver(mDownloadBdRcv, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
-    */
+    
     private void checkUpdateVersion(boolean result) {
         String mapApiUrl = "https://api.github.com/repos/zcshou/gogogo/releases/latest";
 
@@ -1228,7 +1228,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
                                     Button updateCancel = window.findViewById(R.id.update_ignore);
                                     updateCancel.setOnClickListener(v -> alertDialog.cancel());
 
-                                    /* 这里用来保存下载地址 */
+                                    //这里用来保存下载地址 
                                     JSONArray jsonArray = new JSONArray(getRetJson.getString("assets"));
                                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                                     String download_url = jsonObject.getString("browser_download_url");
@@ -1297,4 +1297,6 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
             startActivity(intent);
         }
     }
+*/
+                                    
 }
